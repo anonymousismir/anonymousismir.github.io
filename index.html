@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>RefinPaint</title>
+  <script src="https://cdn.jsdelivr.net/combine/npm/tone@14.7.58,npm/@magenta/music@1.23.1/es6/core.js,npm/focus-visible@5,npm/html-midi-player@1.5.0"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <style>
+    body {
+            padding-left: 20%;
+            padding-right: 20%;
+    }
+    .custom-control-label::before, .custom-control-label::after {
+        top: .8rem;
+        width: 1.5rem; /* Smaller width */
+        height: 1.5rem; /* Smaller height */
+    }
+    .custom-control-label {
+        margin-bottom: 0;
+        vertical-align: top;
+        cursor: pointer;
+    }
+    .custom-radio .custom-control-input:checked ~ .custom-control-label::before {
+        background-color: #007bff;
+    }
+    .custom-radio .custom-control-label::before {
+        border-radius: 0;
+    }
+    .selection-bar {
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+        gap: 10px;
+    }
+    .bar-option {
+        flex-grow: 1;
+        text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <h1>Companion page featuring examples</h1>
+  <p>Supplementary material to the paper submitted for review: F. Author, S. Author, and T. Author, <i>Music Proofreading
+with RefinPaint: Where and How to Modify Compositions given Context</i>, in Proc. of the 23rd Int. Society for Music Information Retrieval
+Conf., San Francisco, USA, 2024.</p>
+  <h2>Case of study on amateur compositions</h2>
+  <p>Participants used a straightforward proofreading interface that enables bar selection for regeneration, allowing them to choose how much of the content to keep in certain sections of their work. Thus, the first iteration of RefinPaint doesn't process and regenerate the entire selected fragment; it modifies only parts based on the user's confidence level. Additionally, we provided users with the flexibility to change the tokens within the RefinPaint selection. We allow them to experiment with the tools doing as many trials as they want.</p>
+  <p>After testing our inpainting tool on a 30-second music piece, participants responded to questions about their experience.</p>
+  <h3>Subject 1</h3>
+  <ul class="nav nav-tabs">
+  <li class="nav-item">
+    <a class="nav-link active" data-toggle="tab" href="#experiment1b">Original</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" data-toggle="tab" href="#experiment2b">Version 2</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" data-toggle="tab" href="#experiment3b">Version 3</a>
+  </li>
+  </ul>
+
+  <div class="tab-content">
+    <div class="tab-pane container active" id="experiment1b">
+      <midi-player src="/static/subject1/version1.mid" sound-font visualizer="#visualizer1b"></midi-player>
+      <midi-visualizer type="piano-roll" id="visualizer1b"></midi-visualizer>
+    </div>
+    <div class="tab-pane container fade" id="experiment2b">
+      <midi-player src="/static/subject1/version2.mid" sound-font visualizer="#visualizer2b"></midi-player>
+      <midi-visualizer type="piano-roll" id="visualizer2b"></midi-visualizer>
+    </div>
+    <div class="tab-pane container fade" id="experiment3b">
+      <midi-player src="/static/subject1/version3.mid" sound-font visualizer="#visualizer3b"></midi-player>
+      <midi-visualizer type="piano-roll" id="visualizer3b"></midi-visualizer>
+    </div>
+  </div>
+  <h3>Subject 2</h3>
+  <ul class="nav nav-tabs">
+     <li class="nav-item">
+        <a class="nav-link active" data-toggle="tab" href="#experiment1c">Original</a>
+     </li>
+     <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#experiment2c">Version 2</a>
+     </li>
+     <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#experiment3c">Version 3</a>
+     </li>
+  </ul>
+  <div class="tab-content">
+    <div class="tab-pane container active" id="experiment1c">
+       <midi-player src="/static/subject2/version1.mid" sound-font visualizer="#visualizer1c"></midi-player>
+       <midi-visualizer type="piano-roll" id="visualizer1c"></midi-visualizer>
+    </div>
+    <div class="tab-pane container fade" id="experiment2c">
+       <midi-player src="/static/subject2/version2.mid" sound-font visualizer="#visualizer2c"></midi-player>
+       <midi-visualizer type="piano-roll" id="visualizer2c"></midi-visualizer>
+    </div>
+    <div class="tab-pane container fade" id="experiment3c">
+       <midi-player src="/static/subject2/version3.mid" sound-font visualizer="#visualizer3c"></midi-player>
+       <midi-visualizer type="piano-roll" id="visualizer3c"></midi-visualizer>
+    </div>
+  </div>
+
+  <h3>Subject 3</h3>
+  <ul class="nav nav-tabs">
+    <li class="nav-item">
+      <a class="nav-link active" data-toggle="tab" href="#experiment1">Original</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="tab" href="#experiment2">Version 2</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="tab" href="#experiment4">Version 3</a>
+    </li>
+  </ul>
+  <div class="tab-content">
+    <div class="tab-pane container active" id="experiment1">
+      <midi-player src="/static/subject3/version1.mid" sound-font visualizer="#visualizer1"></midi-player>
+      <midi-visualizer type="piano-roll" id="visualizer1"></midi-visualizer>
+    </div>
+    <div class="tab-pane container fade" id="experiment2">
+      <midi-player src="/static/subject3/version2.mid" sound-font visualizer="#visualizer2"></midi-player>
+      <midi-visualizer type="piano-roll" id="visualizer2"></midi-visualizer>
+    </div>
+    <div class="tab-pane container fade" id="experiment4">
+      <midi-player src="/static/subject3/version4.mid" sound-font visualizer="#visualizer4"></midi-player>
+      <midi-visualizer type="piano-roll" id="visualizer4"></midi-visualizer>
+    </div>
+  </div>
+
+  <h3>Subject 4</h3>
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+        <a class="nav-link active" data-toggle="tab" href="#experiment1d">Original</a>
+        </li>
+        <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#experiment2d">Version 2</a>
+        </li>
+        <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#experiment5">Version 3</a>
+        </li>
+    </ul>
+
+    <div class="tab-content">
+        <div class="tab-pane container active" id="experiment1d">
+        <midi-player src="/static/subject4/version1.mid" sound-font visualizer="#visualizer1d"></midi-player>
+        <midi-visualizer type="piano-roll" id="visualizer1d"></midi-visualizer>
+        </div>
+        <div class="tab-pane container fade" id="experiment2d">
+        <midi-player src="/static/subject4/version2.mid" sound-font visualizer="#visualizer2d"></midi-player>
+        <midi-visualizer type="piano-roll" id="visualizer2d"></midi-visualizer>
+        </div>
+        <div class="tab-pane container fade" id="experiment5">
+        <midi-player src="/static/subject4/version3.mid" sound-font visualizer="#visualizer5"></midi-player>
+        <midi-visualizer type="piano-roll" id="visualizer5"></midi-visualizer>
+        </div>
+    </div>
+</body>
+</html>
