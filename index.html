@@ -38,6 +38,30 @@
         flex-grow: 1;
         text-align: center;
     }
+    .video-placeholder {
+    position: relative;
+    width: 100%; /* Desired width of the video placeholder */
+    padding-top: 56.25%; /* Aspect ratio (16:9) */
+    background-color: #000; /* Background color of the placeholder */
+  }
+  .video-placeholder::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: url('https://via.placeholder.com/640x360.png?text=Video+Coming+Soon') center center no-repeat;
+    background-size: cover; /* Cover the entire area of the placeholder */
+    z-index: 1;
+  }
+  .video-message {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    text-align: center;
+    z-index: 2;
+    font-size: 20px; /* Adjust size as needed */
+    font-family: Arial, sans-serif; /* Optional: font style */
+  }
   </style>
 </head>
 <body>
@@ -45,116 +69,549 @@
   <p>Supplementary material to the paper submitted for review: F. Author, S. Author, and T. Author, <i>Music Proofreading
 with RefinPaint: Where and How to Modify Compositions given Context</i>, in Proc. of the 23rd Int. Society for Music Information Retrieval
 Conf., San Francisco, USA, 2024.</p>
+<div class="video-placeholder">
+  <div class="video-message">Video will be available soon.</div>
+</div>
   <h2>Case of study on amateur compositions</h2>
-  <p>Participants used a straightforward proofreading interface that enables bar selection for regeneration, allowing them to choose how much of the content to keep in certain sections of their work. Thus, the first iteration of RefinPaint doesn't process and regenerate the entire selected fragment; it modifies only parts based on the user's confidence level. Additionally, we provided users with the flexibility to change the tokens within the RefinPaint selection. We allow them to experiment with the tools doing as many trials as they want.</p>
-  <p>After testing our inpainting tool on a 30-second music piece, participants responded to questions about their experience.</p>
-  <h3>Subject 1</h3>
-  <ul class="nav nav-tabs">
-  <li class="nav-item">
-    <a class="nav-link active" data-toggle="tab" href="#experiment1b">Original</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" data-toggle="tab" href="#experiment2b">Version 2</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" data-toggle="tab" href="#experiment3b">Version 3</a>
-  </li>
-  </ul>
-
-  <div class="tab-content">
-    <div class="tab-pane container active" id="experiment1b">
-      <midi-player src="/static/subject1/version1.mid" sound-font visualizer="#visualizer1b"></midi-player>
-      <midi-visualizer type="piano-roll" id="visualizer1b"></midi-visualizer>
-    </div>
-    <div class="tab-pane container fade" id="experiment2b">
-      <midi-player src="/static/subject1/version2.mid" sound-font visualizer="#visualizer2b"></midi-player>
-      <midi-visualizer type="piano-roll" id="visualizer2b"></midi-visualizer>
-    </div>
-    <div class="tab-pane container fade" id="experiment3b">
-      <midi-player src="/static/subject1/version3.mid" sound-font visualizer="#visualizer3b"></midi-player>
-      <midi-visualizer type="piano-roll" id="visualizer3b"></midi-visualizer>
-    </div>
-  </div>
-  <h3>Subject 2</h3>
-  <ul class="nav nav-tabs">
-     <li class="nav-item">
-        <a class="nav-link active" data-toggle="tab" href="#experiment1c">Original</a>
-     </li>
-     <li class="nav-item">
-        <a class="nav-link" data-toggle="tab" href="#experiment2c">Version 2</a>
-     </li>
-     <li class="nav-item">
-        <a class="nav-link" data-toggle="tab" href="#experiment3c">Version 3</a>
-     </li>
-  </ul>
-  <div class="tab-content">
-    <div class="tab-pane container active" id="experiment1c">
-       <midi-player src="/static/subject2/version1.mid" sound-font visualizer="#visualizer1c"></midi-player>
-       <midi-visualizer type="piano-roll" id="visualizer1c"></midi-visualizer>
-    </div>
-    <div class="tab-pane container fade" id="experiment2c">
-       <midi-player src="/static/subject2/version2.mid" sound-font visualizer="#visualizer2c"></midi-player>
-       <midi-visualizer type="piano-roll" id="visualizer2c"></midi-visualizer>
-    </div>
-    <div class="tab-pane container fade" id="experiment3c">
-       <midi-player src="/static/subject2/version3.mid" sound-font visualizer="#visualizer3c"></midi-player>
-       <midi-visualizer type="piano-roll" id="visualizer3c"></midi-visualizer>
-    </div>
-  </div>
-
-  <h3>Subject 3</h3>
-  <ul class="nav nav-tabs">
-    <li class="nav-item">
-      <a class="nav-link active" data-toggle="tab" href="#experiment1">Original</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" data-toggle="tab" href="#experiment2">Version 2</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" data-toggle="tab" href="#experiment4">Version 3</a>
-    </li>
-  </ul>
-  <div class="tab-content">
-    <div class="tab-pane container active" id="experiment1">
-      <midi-player src="/static/subject3/version1.mid" sound-font visualizer="#visualizer1"></midi-player>
-      <midi-visualizer type="piano-roll" id="visualizer1"></midi-visualizer>
-    </div>
-    <div class="tab-pane container fade" id="experiment2">
-      <midi-player src="/static/subject3/version2.mid" sound-font visualizer="#visualizer2"></midi-player>
-      <midi-visualizer type="piano-roll" id="visualizer2"></midi-visualizer>
-    </div>
-    <div class="tab-pane container fade" id="experiment4">
-      <midi-player src="/static/subject3/version4.mid" sound-font visualizer="#visualizer4"></midi-player>
-      <midi-visualizer type="piano-roll" id="visualizer4"></midi-visualizer>
-    </div>
-  </div>
-
-  <h3>Subject 4</h3>
+  <button class="btn btn-info" type="button" data-toggle="collapse" data-target="#caseStudyOne" aria-expanded="false" aria-controls="caseStudyOne">
+  Toggle Case Study on Amateur Compositions
+  </button>
+  <div class="collapse" id="caseStudyOne">
+    <p>Participants used a straightforward proofreading interface that enables bar selection for regeneration, allowing them to choose how much of the content to keep in certain sections of their work. Thus, the user can choose whether the first iteration of RefinPaint process and regenerate the entire selected fragment. Additionally, we provided users with the flexibility to change the tokens within the RefinPaint selection. We allow them to experiment with the tools doing as many trials as they want.</p>
+    <p>After testing our inpainting tool on a 30-second music piece, participants responded to questions about their experience.</p>
+    <h3>Subject 1</h3>
     <ul class="nav nav-tabs">
-        <li class="nav-item">
-        <a class="nav-link active" data-toggle="tab" href="#experiment1d">Original</a>
-        </li>
-        <li class="nav-item">
-        <a class="nav-link" data-toggle="tab" href="#experiment2d">Version 2</a>
-        </li>
-        <li class="nav-item">
-        <a class="nav-link" data-toggle="tab" href="#experiment5">Version 3</a>
-        </li>
+    <li class="nav-item">
+      <a class="nav-link active" data-toggle="tab" href="#experiment1b">Original</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="tab" href="#experiment2b">Version 2</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="tab" href="#experiment3b">Version 3</a>
+    </li>
     </ul>
 
     <div class="tab-content">
-        <div class="tab-pane container active" id="experiment1d">
-        <midi-player src="/static/subject4/version1.mid" sound-font visualizer="#visualizer1d"></midi-player>
-        <midi-visualizer type="piano-roll" id="visualizer1d"></midi-visualizer>
+      <div class="tab-pane container active" id="experiment1b">
+        <midi-player src="/static/subject1/version1.mid" sound-font visualizer="#visualizer1b"></midi-player>
+        <midi-visualizer type="piano-roll" id="visualizer1b"></midi-visualizer>
+      </div>
+      <div class="tab-pane container fade" id="experiment2b">
+        <midi-player src="/static/subject1/version2.mid" sound-font visualizer="#visualizer2b"></midi-player>
+        <midi-visualizer type="piano-roll" id="visualizer2b"></midi-visualizer>
+      </div>
+      <div class="tab-pane container fade" id="experiment3b">
+        <midi-player src="/static/subject1/version3.mid" sound-font visualizer="#visualizer3b"></midi-player>
+        <midi-visualizer type="piano-roll" id="visualizer3b"></midi-visualizer>
+      </div>
+    </div>
+    <h3>Subject 2</h3>
+    <ul class="nav nav-tabs">
+       <li class="nav-item">
+          <a class="nav-link active" data-toggle="tab" href="#experiment1c">Original</a>
+       </li>
+       <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="#experiment2c">Version 2</a>
+       </li>
+       <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="#experiment3c">Version 3</a>
+       </li>
+    </ul>
+    <div class="tab-content">
+      <div class="tab-pane container active" id="experiment1c">
+         <midi-player src="/static/subject2/version1.mid" sound-font visualizer="#visualizer1c"></midi-player>
+         <midi-visualizer type="piano-roll" id="visualizer1c"></midi-visualizer>
+      </div>
+      <div class="tab-pane container fade" id="experiment2c">
+         <midi-player src="/static/subject2/version2.mid" sound-font visualizer="#visualizer2c"></midi-player>
+         <midi-visualizer type="piano-roll" id="visualizer2c"></midi-visualizer>
+      </div>
+      <div class="tab-pane container fade" id="experiment3c">
+         <midi-player src="/static/subject2/version3.mid" sound-font visualizer="#visualizer3c"></midi-player>
+         <midi-visualizer type="piano-roll" id="visualizer3c"></midi-visualizer>
+      </div>
+    </div>
+
+    <h3>Subject 3</h3>
+    <ul class="nav nav-tabs">
+      <li class="nav-item">
+        <a class="nav-link active" data-toggle="tab" href="#experiment1">Original</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#experiment2">Version 2</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#experiment4">Version 3</a>
+      </li>
+    </ul>
+    <div class="tab-content">
+      <div class="tab-pane container active" id="experiment1">
+        <midi-player src="/static/subject3/version1.mid" sound-font visualizer="#visualizer1"></midi-player>
+        <midi-visualizer type="piano-roll" id="visualizer1"></midi-visualizer>
+      </div>
+      <div class="tab-pane container fade" id="experiment2">
+        <midi-player src="/static/subject3/version2.mid" sound-font visualizer="#visualizer2"></midi-player>
+        <midi-visualizer type="piano-roll" id="visualizer2"></midi-visualizer>
+      </div>
+      <div class="tab-pane container fade" id="experiment4">
+        <midi-player src="/static/subject3/version4.mid" sound-font visualizer="#visualizer4"></midi-player>
+        <midi-visualizer type="piano-roll" id="visualizer4"></midi-visualizer>
+      </div>
+    </div>
+
+    <h3>Subject 4</h3>
+      <ul class="nav nav-tabs">
+          <li class="nav-item">
+          <a class="nav-link active" data-toggle="tab" href="#experiment1d">Original</a>
+          </li>
+          <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="#experiment2d">Version 2</a>
+          </li>
+          <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="#experiment5">Version 3</a>
+          </li>
+      </ul>
+
+      <div class="tab-content">
+          <div class="tab-pane container active" id="experiment1d">
+          <midi-player src="/static/subject4/version1.mid" sound-font visualizer="#visualizer1d"></midi-player>
+          <midi-visualizer type="piano-roll" id="visualizer1d"></midi-visualizer>
+          </div>
+          <div class="tab-pane container fade" id="experiment2d">
+          <midi-player src="/static/subject4/version2.mid" sound-font visualizer="#visualizer2d"></midi-player>
+          <midi-visualizer type="piano-roll" id="visualizer2d"></midi-visualizer>
+          </div>
+          <div class="tab-pane container fade" id="experiment5">
+          <midi-player src="/static/subject4/version3.mid" sound-font visualizer="#visualizer5"></midi-player>
+          <midi-visualizer type="piano-roll" id="visualizer5"></midi-visualizer>
+          </div>
+      </div>
+    </div>
+    <h2>Case Study on Inpainting</h2>
+    <button class="btn btn-info" type="button" data-toggle="collapse" data-target="#caseStudyTwo" aria-expanded="false" aria-controls="caseStudyTwo">
+      Toggle Case Study on Inpainting
+    </button>
+    <div class="collapse" id="caseStudyTwo">
+      <h3>Experiment 1</h3>
+      <ul class="nav nav-tabs">
+        <li class="nav-item">
+          <a class="nav-link active" data-toggle="tab" href="#original16348">Original</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="#pia16348">PIA</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="#refinpaint16348">RefinPaint</a>
+        </li>
+      </ul>
+
+      <div class="tab-content">
+        <div class="tab-pane container active" id="original16348">
+          <midi-player src="/static/inpainting/piece_to_infilling_16348.mid" sound-font visualizer="#visualizerOriginal16348"></midi-player>
+          <midi-visualizer type="piano-roll" id="visualizerOriginal16348"></midi-visualizer>
         </div>
-        <div class="tab-pane container fade" id="experiment2d">
-        <midi-player src="/static/subject4/version2.mid" sound-font visualizer="#visualizer2d"></midi-player>
-        <midi-visualizer type="piano-roll" id="visualizer2d"></midi-visualizer>
+        <div class="tab-pane container fade" id="pia16348">
+          <midi-player src="/static/inpainting/algorithm1piano_10_16348_5million_noisyReal.mid" sound-font visualizer="#visualizerPia16348"></midi-player>
+          <midi-visualizer type="piano-roll" id="visualizerPia16348"></midi-visualizer>
         </div>
-        <div class="tab-pane container fade" id="experiment5">
-        <midi-player src="/static/subject4/version3.mid" sound-font visualizer="#visualizer5"></midi-player>
-        <midi-visualizer type="piano-roll" id="visualizer5"></midi-visualizer>
+        <div class="tab-pane container fade" id="refinpaint16348">
+          <midi-player src="/static/inpainting/algorithm3piano_1_16348_5million_noisyReal.mid" sound-font visualizer="#visualizerRefinpaint16348"></midi-player>
+          <midi-visualizer type="piano-roll" id="visualizerRefinpaint16348"></midi-visualizer>
         </div>
+      </div>
+      
+      <h3>Experiment 2</h3>
+      <ul class="nav nav-tabs">
+        <li class="nav-item">
+          <a class="nav-link active" data-toggle="tab" href="#original16664">Original</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="#pia16664">PIA</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="#refinpaint16664">RefinPaint</a>
+        </li>
+      </ul>
+
+      <div class="tab-content">
+        <div class="tab-pane container active" id="original16664">
+          <midi-player src="/static/inpainting/piece_to_infilling_16664.mid" sound-font visualizer="#visualizerOriginal16664"></midi-player>
+          <midi-visualizer type="piano-roll" id="visualizerOriginal16664"></midi-visualizer>
+        </div>
+        <div class="tab-pane container fade" id="pia16664">
+          <midi-player src="/static/inpainting/algorithm1piano_10_16664_5million_noisyReal.mid" sound-font visualizer="#visualizerPia16664"></midi-player>
+          <midi-visualizer type="piano-roll" id="visualizerPia16664"></midi-visualizer>
+        </div>
+        <div class="tab-pane container fade" id="refinpaint16664">
+          <midi-player src="/static/inpainting/algorithm3piano_1_16664_5million_noisyReal.mid" sound-font visualizer="#visualizerRefinpaint16664"></midi-player>
+          <midi-visualizer type="piano-roll" id="visualizerRefinpaint16664"></midi-visualizer>
+        </div>
+      </div>
+      
+      <h3>Experiment 3</h3>
+      <ul class="nav nav-tabs">
+        <li class="nav-item">
+          <a class="nav-link active" data-toggle="tab" href="#original16884">Original</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="#pia16884">PIA</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="#refinpaint16884">RefinPaint</a>
+        </li>
+      </ul>
+
+      <div class="tab-content">
+        <div class="tab-pane container active" id="original16884">
+          <midi-player src="/static/inpainting/piece_to_infilling_16884.mid" sound-font visualizer="#visualizerOriginal16884"></midi-player>
+          <midi-visualizer type="piano-roll" id="visualizerOriginal16884"></midi-visualizer>
+        </div>
+        <div class="tab-pane container fade" id="pia16884">
+          <midi-player src="/static/inpainting/algorithm1piano_10_16884_5million_noisyReal.mid" sound-font visualizer="#visualizerPia16884"></midi-player>
+          <midi-visualizer type="piano-roll" id="visualizerPia16884"></midi-visualizer>
+        </div>
+        <div class="tab-pane container fade" id="refinpaint16884">
+          <midi-player src="/static/inpainting/algorithm3piano_1_16884_5million_noisyReal.mid" sound-font visualizer="#visualizerRefinpaint16884"></midi-player>
+          <midi-visualizer type="piano-roll" id="visualizerRefinpaint16884"></midi-visualizer>
+        </div>
+      </div>
+      
+      <h3>Experiment 4</h3>
+      <ul class="nav nav-tabs">
+        <li class="nav-item">
+          <a class="nav-link active" data-toggle="tab" href="#original26901">Original</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="#pia26901">PIA</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="#refinpaint26901">RefinPaint</a>
+        </li>
+      </ul>
+
+      <div class="tab-content">
+        <div class="tab-pane container active" id="original26901">
+          <midi-player src="/static/inpainting/piece_to_infilling_26901.mid" sound-font visualizer="#visualizerOriginal26901"></midi-player>
+          <midi-visualizer type="piano-roll" id="visualizerOriginal26901"></midi-visualizer>
+        </div>
+        <div class="tab-pane container fade" id="pia26901">
+          <midi-player src="/static/inpainting/algorithm1piano_10_26901_5million_noisyReal.mid" sound-font visualizer="#visualizerPia26901"></midi-player>
+          <midi-visualizer type="piano-roll" id="visualizerPia26901"></midi-visualizer>
+        </div>
+        <div class="tab-pane container fade" id="refinpaint26901">
+          <midi-player src="/static/inpainting/algorithm3piano_1_26901_5million_noisyReal.mid" sound-font visualizer="#visualizerRefinpaint26901"></midi-player>
+          <midi-visualizer type="piano-roll" id="visualizerRefinpaint26901"></midi-visualizer>
+        </div>
+      </div>
+      
+      <h3>Experiment 5</h3>
+      <ul class="nav nav-tabs">
+        <li class="nav-item">
+          <a class="nav-link active" data-toggle="tab" href="#original3121">Original</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="#pia3121">PIA</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="#refinpaint3121">RefinPaint</a>
+        </li>
+      </ul>
+
+      <div class="tab-content">
+        <div class="tab-pane container active" id="original3121">
+          <midi-player src="/static/inpainting/piece_to_infilling_3121.mid" sound-font visualizer="#visualizerOriginal3121"></midi-player>
+          <midi-visualizer type="piano-roll" id="visualizerOriginal3121"></midi-visualizer>
+        </div>
+        <div class="tab-pane container fade" id="pia3121">
+          <midi-player src="/static/inpainting/algorithm1piano_10_3121_5million_noisyReal.mid" sound-font visualizer="#visualizerPia3121"></midi-player>
+          <midi-visualizer type="piano-roll" id="visualizerPia3121"></midi-visualizer>
+        </div>
+        <div class="tab-pane container fade" id="refinpaint3121">
+          <midi-player src="/static/inpainting/algorithm3piano_1_3121_5million_noisyReal.mid" sound-font visualizer="#visualizerRefinpaint3121"></midi-player>
+          <midi-visualizer type="piano-roll" id="visualizerRefinpaint3121"></midi-visualizer>
+        </div>
+      </div>
+      
+      <h3>Experiment 6</h3>
+      <ul class="nav nav-tabs">
+        <li class="nav-item">
+          <a class="nav-link active" data-toggle="tab" href="#original55970">Original</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="#pia55970">PIA</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="#refinpaint55970">RefinPaint</a>
+        </li>
+      </ul>
+
+      <div class="tab-content">
+        <div class="tab-pane container active" id="original55970">
+          <midi-player src="/static/inpainting/piece_to_infilling_55970.mid" sound-font visualizer="#visualizerOriginal55970"></midi-player>
+          <midi-visualizer type="piano-roll" id="visualizerOriginal55970"></midi-visualizer>
+        </div>
+        <div class="tab-pane container fade" id="pia55970">
+          <midi-player src="/static/inpainting/algorithm1piano_10_55970_5million_noisyReal.mid" sound-font visualizer="#visualizerPia55970"></midi-player>
+          <midi-visualizer type="piano-roll" id="visualizerPia55970"></midi-visualizer>
+        </div>
+        <div class="tab-pane container fade" id="refinpaint55970">
+          <midi-player src="/static/inpainting/algorithm3piano_1_55970_5million_noisyReal.mid" sound-font visualizer="#visualizerRefinpaint55970"></midi-player>
+          <midi-visualizer type="piano-roll" id="visualizerRefinpaint55970"></midi-visualizer>
+        </div>
+      </div>
+      
+      <h3>Experiment 7</h3>
+      <ul class="nav nav-tabs">
+        <li class="nav-item">
+          <a class="nav-link active" data-toggle="tab" href="#original5628">Original</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="#pia5628">PIA</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="#refinpaint5628">RefinPaint</a>
+        </li>
+      </ul>
+
+      <div class="tab-content">
+        <div class="tab-pane container active" id="original5628">
+          <midi-player src="/static/inpainting/piece_to_infilling_5628.mid" sound-font visualizer="#visualizerOriginal5628"></midi-player>
+          <midi-visualizer type="piano-roll" id="visualizerOriginal5628"></midi-visualizer>
+        </div>
+        <div class="tab-pane container fade" id="pia5628">
+          <midi-player src="/static/inpainting/algorithm1piano_10_5628_5million_noisyReal.mid" sound-font visualizer="#visualizerPia5628"></midi-player>
+          <midi-visualizer type="piano-roll" id="visualizerPia5628"></midi-visualizer>
+        </div>
+        <div class="tab-pane container fade" id="refinpaint5628">
+          <midi-player src="/static/inpainting/algorithm3piano_1_5628_5million_noisyReal.mid" sound-font visualizer="#visualizerRefinpaint5628"></midi-player>
+          <midi-visualizer type="piano-roll" id="visualizerRefinpaint5628"></midi-visualizer>
+        </div>
+      </div>
+      
+      <h3>Experiment 8</h3>
+      <ul class="nav nav-tabs">
+        <li class="nav-item">
+          <a class="nav-link active" data-toggle="tab" href="#original62912">Original</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="#pia62912">PIA</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="#refinpaint62912">RefinPaint</a>
+        </li>
+      </ul>
+
+      <div class="tab-content">
+        <div class="tab-pane container active" id="original62912">
+          <midi-player src="/static/inpainting/piece_to_infilling_62912.mid" sound-font visualizer="#visualizerOriginal62912"></midi-player>
+          <midi-visualizer type="piano-roll" id="visualizerOriginal62912"></midi-visualizer>
+        </div>
+        <div class="tab-pane container fade" id="pia62912">
+          <midi-player src="/static/inpainting/algorithm1piano_10_62912_5million_noisyReal.mid" sound-font visualizer="#visualizerPia62912"></midi-player>
+          <midi-visualizer type="piano-roll" id="visualizerPia62912"></midi-visualizer>
+        </div>
+        <div class="tab-pane container fade" id="refinpaint62912">
+          <midi-player src="/static/inpainting/algorithm3piano_1_62912_5million_noisyReal.mid" sound-font visualizer="#visualizerRefinpaint62912"></midi-player>
+          <midi-visualizer type="piano-roll" id="visualizerRefinpaint62912"></midi-visualizer>
+        </div>
+      </div>
+      
+      <h3>Experiment 9</h3>
+      <ul class="nav nav-tabs">
+        <li class="nav-item">
+          <a class="nav-link active" data-toggle="tab" href="#original65888">Original</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="#pia65888">PIA</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="#refinpaint65888">RefinPaint</a>
+        </li>
+      </ul>
+
+      <div class="tab-content">
+        <div class="tab-pane container active" id="original65888">
+          <midi-player src="/static/inpainting/piece_to_infilling_65888.mid" sound-font visualizer="#visualizerOriginal65888"></midi-player>
+          <midi-visualizer type="piano-roll" id="visualizerOriginal65888"></midi-visualizer>
+        </div>
+        <div class="tab-pane container fade" id="pia65888">
+          <midi-player src="/static/inpainting/algorithm1piano_10_65888_5million_noisyReal.mid" sound-font visualizer="#visualizerPia65888"></midi-player>
+          <midi-visualizer type="piano-roll" id="visualizerPia65888"></midi-visualizer>
+        </div>
+        <div class="tab-pane container fade" id="refinpaint65888">
+          <midi-player src="/static/inpainting/algorithm3piano_1_65888_5million_noisyReal.mid" sound-font visualizer="#visualizerRefinpaint65888"></midi-player>
+          <midi-visualizer type="piano-roll" id="visualizerRefinpaint65888"></midi-visualizer>
+        </div>
+      </div>
+      
+      <h3>Experiment 10</h3>
+      <ul class="nav nav-tabs">
+        <li class="nav-item">
+          <a class="nav-link active" data-toggle="tab" href="#original72310">Original</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="#pia72310">PIA</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="#refinpaint72310">RefinPaint</a>
+        </li>
+      </ul>
+
+      <div class="tab-content">
+        <div class="tab-pane container active" id="original72310">
+          <midi-player src="/static/inpainting/piece_to_infilling_72310.mid" sound-font visualizer="#visualizerOriginal72310"></midi-player>
+          <midi-visualizer type="piano-roll" id="visualizerOriginal72310"></midi-visualizer>
+        </div>
+        <div class="tab-pane container fade" id="pia72310">
+          <midi-player src="/static/inpainting/algorithm1piano_10_72310_5million_noisyReal.mid" sound-font visualizer="#visualizerPia72310"></midi-player>
+          <midi-visualizer type="piano-roll" id="visualizerPia72310"></midi-visualizer>
+        </div>
+        <div class="tab-pane container fade" id="refinpaint72310">
+          <midi-player src="/static/inpainting/algorithm3piano_1_72310_5million_noisyReal.mid" sound-font visualizer="#visualizerRefinpaint72310"></midi-player>
+          <midi-visualizer type="piano-roll" id="visualizerRefinpaint72310"></midi-visualizer>
+        </div>
+      </div>
+      
+      <h3>Experiment 11</h3>
+      <ul class="nav nav-tabs">
+        <li class="nav-item">
+          <a class="nav-link active" data-toggle="tab" href="#original80361">Original</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="#pia80361">PIA</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="#refinpaint80361">RefinPaint</a>
+        </li>
+      </ul>
+
+      <div class="tab-content">
+        <div class="tab-pane container active" id="original80361">
+          <midi-player src="/static/inpainting/piece_to_infilling_80361.mid" sound-font visualizer="#visualizerOriginal80361"></midi-player>
+          <midi-visualizer type="piano-roll" id="visualizerOriginal80361"></midi-visualizer>
+        </div>
+        <div class="tab-pane container fade" id="pia80361">
+          <midi-player src="/static/inpainting/algorithm1piano_10_80361_5million_noisyReal.mid" sound-font visualizer="#visualizerPia80361"></midi-player>
+          <midi-visualizer type="piano-roll" id="visualizerPia80361"></midi-visualizer>
+        </div>
+        <div class="tab-pane container fade" id="refinpaint80361">
+          <midi-player src="/static/inpainting/algorithm3piano_1_80361_5million_noisyReal.mid" sound-font visualizer="#visualizerRefinpaint80361"></midi-player>
+          <midi-visualizer type="piano-roll" id="visualizerRefinpaint80361"></midi-visualizer>
+        </div>
+      </div>
+      
+      <h3>Experiment 12</h3>
+      <ul class="nav nav-tabs">
+        <li class="nav-item">
+          <a class="nav-link active" data-toggle="tab" href="#original90206">Original</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="#pia90206">PIA</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="#refinpaint90206">RefinPaint</a>
+        </li>
+      </ul>
+
+      <div class="tab-content">
+        <div class="tab-pane container active" id="original90206">
+          <midi-player src="/static/inpainting/piece_to_infilling_90206.mid" sound-font visualizer="#visualizerOriginal90206"></midi-player>
+          <midi-visualizer type="piano-roll" id="visualizerOriginal90206"></midi-visualizer>
+        </div>
+        <div class="tab-pane container fade" id="pia90206">
+          <midi-player src="/static/inpainting/algorithm1piano_10_90206_5million_noisyReal.mid" sound-font visualizer="#visualizerPia90206"></midi-player>
+          <midi-visualizer type="piano-roll" id="visualizerPia90206"></midi-visualizer>
+        </div>
+        <div class="tab-pane container fade" id="refinpaint90206">
+          <midi-player src="/static/inpainting/algorithm3piano_1_90206_5million_noisyReal.mid" sound-font visualizer="#visualizerRefinpaint90206"></midi-player>
+          <midi-visualizer type="piano-roll" id="visualizerRefinpaint90206"></midi-visualizer>
+        </div>
+      </div>
+      
+      <h3>Experiment 13</h3>
+      <ul class="nav nav-tabs">
+        <li class="nav-item">
+          <a class="nav-link active" data-toggle="tab" href="#original94478">Original</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="#pia94478">PIA</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="#refinpaint94478">RefinPaint</a>
+        </li>
+      </ul>
+
+      <div class="tab-content">
+        <div class="tab-pane container active" id="original94478">
+          <midi-player src="/static/inpainting/piece_to_infilling_94478.mid" sound-font visualizer="#visualizerOriginal94478"></midi-player>
+          <midi-visualizer type="piano-roll" id="visualizerOriginal94478"></midi-visualizer>
+        </div>
+        <div class="tab-pane container fade" id="pia94478">
+          <midi-player src="/static/inpainting/algorithm1piano_10_94478_5million_noisyReal.mid" sound-font visualizer="#visualizerPia94478"></midi-player>
+          <midi-visualizer type="piano-roll" id="visualizerPia94478"></midi-visualizer>
+        </div>
+        <div class="tab-pane container fade" id="refinpaint94478">
+          <midi-player src="/static/inpainting/algorithm3piano_1_94478_5million_noisyReal.mid" sound-font visualizer="#visualizerRefinpaint94478"></midi-player>
+          <midi-visualizer type="piano-roll" id="visualizerRefinpaint94478"></midi-visualizer>
+        </div>
+      </div>
+      
+      <h3>Experiment 14</h3>
+      <ul class="nav nav-tabs">
+        <li class="nav-item">
+          <a class="nav-link active" data-toggle="tab" href="#original98392">Original</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="#pia98392">PIA</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="#refinpaint98392">RefinPaint</a>
+        </li>
+      </ul>
+
+      <div class="tab-content">
+        <div class="tab-pane container active" id="original98392">
+          <midi-player src="/static/inpainting/piece_to_infilling_98392.mid" sound-font visualizer="#visualizerOriginal98392"></midi-player>
+          <midi-visualizer type="piano-roll" id="visualizerOriginal98392"></midi-visualizer>
+        </div>
+        <div class="tab-pane container fade" id="pia98392">
+          <midi-player src="/static/inpainting/algorithm1piano_10_98392_5million_noisyReal.mid" sound-font visualizer="#visualizerPia98392"></midi-player>
+          <midi-visualizer type="piano-roll" id="visualizerPia98392"></midi-visualizer>
+        </div>
+        <div class="tab-pane container fade" id="refinpaint98392">
+          <midi-player src="/static/inpainting/algorithm3piano_1_98392_5million_noisyReal.mid" sound-font visualizer="#visualizerRefinpaint98392"></midi-player>
+          <midi-visualizer type="piano-roll" id="visualizerRefinpaint98392"></midi-visualizer>
+        </div>
+      </div>
+      
+      <h3>Experiment 15</h3>
+      <ul class="nav nav-tabs">
+        <li class="nav-item">
+          <a class="nav-link active" data-toggle="tab" href="#original99458">Original</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="#pia99458">PIA</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="#refinpaint99458">RefinPaint</a>
+        </li>
+      </ul>
+
+      <div class="tab-content">
+        <div class="tab-pane container active" id="original99458">
+          <midi-player src="/static/inpainting/piece_to_infilling_99458.mid" sound-font visualizer="#visualizerOriginal99458"></midi-player>
+          <midi-visualizer type="piano-roll" id="visualizerOriginal99458"></midi-visualizer>
+        </div>
+        <div class="tab-pane container fade" id="pia99458">
+          <midi-player src="/static/inpainting/algorithm1piano_10_99458_5million_noisyReal.mid" sound-font visualizer="#visualizerPia99458"></midi-player>
+          <midi-visualizer type="piano-roll" id="visualizerPia99458"></midi-visualizer>
+        </div>
+        <div class="tab-pane container fade" id="refinpaint99458">
+          <midi-player src="/static/inpainting/algorithm3piano_1_99458_5million_noisyReal.mid" sound-font visualizer="#visualizerRefinpaint99458"></midi-player>
+          <midi-visualizer type="piano-roll" id="visualizerRefinpaint99458"></midi-visualizer>
+        </div>
+      </div>
     </div>
 </body>
 </html>
