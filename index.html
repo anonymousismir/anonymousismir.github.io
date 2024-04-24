@@ -38,39 +38,32 @@
         flex-grow: 1;
         text-align: center;
     }
-    .video-placeholder {
+    /* Styles for the video container */
+  .video-container {
     position: relative;
-    width: 100%; /* Desired width of the video placeholder */
+    width: 100%; /* Full width */
+    height: 0; /* Initially zero height */
     padding-top: 56.25%; /* Aspect ratio (16:9) */
-    background-color: #000; /* Background color of the placeholder */
   }
-  .video-placeholder::before {
-    content: "";
+  video {
     position: absolute;
     top: 0; left: 0; right: 0; bottom: 0;
-    background: url('https://via.placeholder.com/640x360.png?text=Video+Coming+Soon') center center no-repeat;
-    background-size: cover; /* Cover the entire area of the placeholder */
-    z-index: 1;
+    width: 100%;
+    height: 100%;
   }
-  .video-message {
-    position: absolute;
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    color: white;
-    text-align: center;
-    z-index: 2;
-    font-size: 20px; /* Adjust size as needed */
-    font-family: Arial, sans-serif; /* Optional: font style */
-  }
-  </style>
+</style>
 </head>
 <body>
-  <h1>Companion page featuring examples</h1>
-  <p>Supplementary material to the paper submitted for review: F. Author, S. Author, and T. Author, <i>Music Proofreading
+<h1>Companion page featuring examples</h1>
+<p>Supplementary material to the paper submitted for review: F. Author, S. Author, and T. Author, <i>Music Proofreading
 with RefinPaint: Where and How to Modify Compositions given Context</i>, in Proc. of the 23rd Int. Society for Music Information Retrieval
 Conf., San Francisco, USA, 2024.</p>
-<div class="video-placeholder">
-  <div class="video-message">Video will be available soon.</div>
+
+<div class="video-container">
+  <video controls>
+    <source src="video.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
 </div>
   <h2>Case of study on amateur compositions</h2>
   <button class="btn btn-info" type="button" data-toggle="collapse" data-target="#caseStudyOne" aria-expanded="false" aria-controls="caseStudyOne">
